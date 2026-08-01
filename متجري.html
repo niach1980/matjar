@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجري</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal-900:#0E3D38;
+    --teal-800:#124A43;
+    --teal-700:#166057;
+    --gold-500:#D9A441;
+    --gold-600:#B9862B;
+    --cream-50:#FAF6EC;
+    --cream-100:#F1EAD6;
+    --ink-900:#1E2A24;
+    --ink-500:#657168;
+    --card-bg:#FFFFFF;
+    --tag-red:#BD4436;
+    --radius:16px;
+    --shadow: 0 10px 30px rgba(14,61,56,0.10);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Tajawal', sans-serif;
+    background:var(--cream-50);
+    color:var(--ink-900);
+    line-height:1.6;
+  }
+  h1,h2,h3, .brand, .price{
+    font-family:'El Messiri', serif;
+  }
+  a{text-decoration:none;color:inherit;}
+  button{font-family:inherit; cursor:pointer; border:none;}
+  img{max-width:100%; display:block;}
+
+  /* ===== Header ===== */
+  header{
+    background:linear-gradient(135deg, var(--teal-900), var(--teal-700));
+    color:#fff;
+    padding:18px 24px;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow: var(--shadow);
+  }
+  .header-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand-block{display:flex; align-items:center; gap:10px;}
+  .brand-mark{
+    width:42px; height:42px; border-radius:10px;
+    background:var(--gold-500);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:700; color:var(--teal-900); font-size:20px;
+    flex-shrink:0;
+  }
+  .brand{font-size:22px; font-weight:700; letter-spacing:0.3px;}
+  .tagline{font-size:12.5px; opacity:0.8; margin-top:-2px;}
+
+  .search-wrap{
+    flex:1;
+    min-width:200px;
+    max-width:420px;
+    position:relative;
+  }
+  .search-wrap input{
+    width:100%;
+    padding:10px 40px 10px 14px;
+    border-radius:999px;
+    border:none;
+    font-family:'Tajawal',sans-serif;
+    font-size:14px;
+    background:rgba(255,255,255,0.14);
+    color:#fff;
+  }
+  .search-wrap input::placeholder{color:rgba(255,255,255,0.65);}
+  .search-wrap input:focus{outline:2px solid var(--gold-500); background:rgba(255,255,255,0.22);}
+  .search-icon{
+    position:absolute; right:14px; top:50%; transform:translateY(-50%);
+    opacity:0.75; pointer-events:none;
+  }
+
+  .whatsapp-pill{
+    display:flex; align-items:center; gap:8px;
+    background:var(--gold-500);
+    color:var(--teal-900);
+    padding:9px 16px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:14px;
+    white-space:nowrap;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .whatsapp-pill:hover{background:#e8b657; transform:translateY(-1px);}
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    background:linear-gradient(180deg, var(--teal-900) 0%, var(--teal-800) 55%, var(--cream-50) 55%);
+    padding:56px 24px 90px;
+    overflow:hidden;
+  }
+  .hero-inner{
+    max-width:1200px;
+    margin:0 auto;
+    color:#fff;
+    text-align:center;
+    position:relative;
+    z-index:2;
+  }
+  .hero h1{
+    font-size:clamp(28px, 5vw, 46px);
+    margin:0 0 10px;
+    font-weight:700;
+  }
+  .hero p{
+    font-size:16px;
+    opacity:0.88;
+    max-width:560px;
+    margin:0 auto 26px;
+  }
+  .hero-cta{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--gold-500);
+    color:var(--teal-900);
+    padding:13px 28px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.18);
+    transition:transform .15s ease;
+  }
+  .hero-cta:hover{transform:translateY(-2px);}
+
+  /* floating price tags decoration */
+  .float-tag{
+    position:absolute;
+    background:var(--cream-50);
+    color:var(--teal-900);
+    font-family:'El Messiri',serif;
+    font-weight:700;
+    font-size:13px;
+    padding:8px 14px 8px 10px;
+    border-radius:6px 6px 6px 2px;
+    box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    z-index:1;
+  }
+  .float-tag::before{
+    content:"";
+    position:absolute;
+    right:-6px; top:50%; transform:translateY(-50%);
+    width:10px; height:10px;
+    background:var(--cream-50);
+    border-radius:50%;
+    box-shadow:2px 0 0 rgba(0,0,0,0.06) inset;
+  }
+  .float-tag.t1{top:18%; left:8%; transform:rotate(-9deg); color:var(--tag-red);}
+  .float-tag.t2{top:62%; left:4%; transform:rotate(6deg); display:none;}
+  .float-tag.t3{top:24%; right:7%; transform:rotate(10deg);}
+  .float-tag.t4{top:64%; right:5%; transform:rotate(-7deg); color:var(--tag-red); display:none;}
+
+  @media(min-width:640px){
+    .float-tag.t2, .float-tag.t4{display:block;}
+  }
+
+  /* ===== Categories ===== */
+  .cats{
+    max-width:1200px;
+    margin:-46px auto 30px;
+    padding:0 24px;
+    position:relative;
+    z-index:5;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .cat-chip{
+    background:var(--card-bg);
+    border:1.5px solid var(--cream-100);
+    color:var(--ink-900);
+    padding:10px 20px;
+    border-radius:999px;
+    font-size:14px;
+    font-weight:700;
+    box-shadow:var(--shadow);
+    transition:all .15s ease;
+  }
+  .cat-chip.active, .cat-chip:hover{
+    background:var(--teal-800);
+    color:#fff;
+    border-color:var(--teal-800);
+  }
+
+  /* ===== Products ===== */
+  main{max-width:1200px; margin:0 auto; padding:0 24px 60px;}
+  .section-title{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:18px;
+  }
+  .section-title h2{font-size:22px; margin:0;}
+  .section-title span{font-size:13px; color:var(--ink-500);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:20px;
+  }
+  .card{
+    background:var(--card-bg);
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    display:flex;
+    flex-direction:column;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:0 16px 34px rgba(14,61,56,0.16);}
+
+  .card-media{
+    position:relative;
+    aspect-ratio:1/1;
+    background:linear-gradient(135deg, var(--cream-100), #E4DAB9);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-media img{width:100%; height:100%; object-fit:cover;}
+  .card-media svg{width:38%; height:38%; opacity:0.55;}
+
+  .badge-discount{
+    position:absolute; top:10px; left:10px;
+    background:var(--tag-red);
+    color:#fff;
+    font-size:11px;
+    font-weight:700;
+    padding:4px 9px;
+    border-radius:6px;
+  }
+
+  .price-tag{
+    position:absolute;
+    bottom:10px; right:-6px;
+    background:var(--gold-500);
+    color:var(--teal-900);
+    font-weight:700;
+    font-size:14px;
+    padding:6px 14px 6px 10px;
+    border-radius:6px 0 0 6px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.18);
+  }
+  .price-tag .old{
+    text-decoration:line-through;
+    font-size:11px;
+    opacity:0.7;
+    margin-left:5px;
+    font-weight:500;
+  }
+
+  .card-body{
+    padding:14px 16px 16px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    flex:1;
+  }
+  .card-cat{font-size:11.5px; color:var(--gold-600); font-weight:700;}
+  .card-name{font-size:15.5px; font-weight:700; margin:0;}
+  .card-desc{font-size:12.5px; color:var(--ink-500); flex:1;}
+
+  .order-btn{
+    margin-top:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+    background:var(--teal-800);
+    color:#fff;
+    padding:10px 12px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:13.5px;
+    transition:background .15s ease;
+  }
+  .order-btn:hover{background:var(--teal-900);}
+
+  .empty-state{
+    text-align:center;
+    padding:60px 20px;
+    color:var(--ink-500);
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    background:var(--teal-900);
+    color:#fff;
+    padding:40px 24px 26px;
+  }
+  .footer-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .footer-inner h3{margin:0 0 8px; font-size:18px;}
+  .footer-inner p, .footer-inner a{font-size:13.5px; opacity:0.85;}
+  .footer-contact{display:flex; flex-direction:column; gap:6px;}
+  .footer-bottom{
+    max-width:1200px;
+    margin:26px auto 0;
+    padding-top:16px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    font-size:12px;
+    opacity:0.6;
+    text-align:center;
+  }
+
+  /* floating whatsapp button */
+  .float-whatsapp{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    background:#25D366;
+    width:56px; height:56px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 10px 24px rgba(0,0,0,0.25);
+    z-index:100;
+    transition:transform .15s ease;
+  }
+  .float-whatsapp:hover{transform:scale(1.08);}
+
+  @media(max-width:520px){
+    .header-inner{justify-content:center;}
+    .search-wrap{order:3; max-width:100%;}
+    .hero{padding:44px 18px 80px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand-block">
+      <div class="brand-mark" id="brandInitial">م</div>
+      <div>
+        <div class="brand" id="storeNameTop">متجري</div>
+        <div class="tagline" id="storeTaglineTop">أفضل المنتجات بأفضل الأسعار</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="ابحث عن منتج...">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </div>
+    <a href="#" id="headerWhatsapp" target="_blank" class="whatsapp-pill">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.34c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.18-8.25 8.18zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.06 0 1.22.88 2.4 1 2.56.12.17 1.75 2.67 4.23 3.75.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+      طلب سريع
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="float-tag t1">خصم 30%</div>
+  <div class="float-tag t2">توصيل سريع</div>
+  <div class="float-tag t3">جودة ✓</div>
+  <div class="float-tag t4">عرض جديد</div>
+  <div class="hero-inner">
+    <h1 id="heroTitle">اطلب منتجاتك المفضلة بسهولة</h1>
+    <p id="heroSubtitle">تصفّح المنتجات، واطلب مباشرة عبر واتساب في أقل من دقيقة</p>
+    <a href="#products" class="hero-cta">
+      تصفّح المنتجات
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5m7-7-7 7 7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<div class="cats" id="catFilters"></div>
+
+<main id="products">
+  <div class="section-title">
+    <h2>كل المنتجات</h2>
+    <span id="resultCount"></span>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <h3 id="storeNameFooter">متجري</h3>
+      <p id="storeTaglineFooter">أفضل المنتجات بأفضل الأسعار، توصيل سريع في كل مكان.</p>
+    </div>
+    <div class="footer-contact">
+      <h3>تواصل معنا</h3>
+      <a href="#" id="footerWhatsapp" target="_blank">واتساب: —</a>
+      <a href="#" id="footerEmail">البريد: —</a>
+    </div>
+  </div>
+  <div class="footer-bottom">جميع الحقوق محفوظة</div>
+</footer>
+
+<a href="#" id="floatWhatsapp" target="_blank" class="float-whatsapp" aria-label="تواصل عبر واتساب">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.34c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.18-8.25 8.18zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.4-.12-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.73-.66-1.23-1.46-1.37-1.71-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43-.14-.01-.31-.01-.48-.01-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.06 0 1.22.88 2.4 1 2.56.12.17 1.75 2.67 4.23 3.75.59.26 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+</a>
+
+<script>
+/* =====================================================================
+   ⚙️  إعدادات المتجر — عدّل القيم هنا فقط لتخصيص اسم متجرك ومعلوماتك
+   ===================================================================== */
+const STORE_CONFIG = {
+  name: "متجري",                                  // اسم متجرك (يظهر في الأعلى والأسفل)
+  tagline: "أفضل المنتجات بأفضل الأسعار",           // جملة قصيرة تحت الاسم
+  heroTitle: "اطلب منتجاتك المفضلة بسهولة",         // العنوان الكبير في الصفحة الرئيسية
+  heroSubtitle: "تصفّح المنتجات، واطلب مباشرة عبر واتساب في أقل من دقيقة",
+  whatsapp: "212630679330",                        // رقم الواتساب بصيغة دولية بدون + وبدون صفر البداية
+  email: "cattou1980@gmail.com",                   // بريدك الإلكتروني
+  currency: "درهم"                                 // اسم العملة (مثال: درهم، دولار، ريال)
+};
+
+/* =====================================================================
+   🛍️  قائمة المنتجات — لإضافة منتج جديد: انسخ إحدى الكتل التالية
+        والصقها داخل المصفوفة، ثم غيّر القيم فقط.
+
+   name        : اسم المنتج
+   price       : السعر الحالي (رقم فقط بدون رموز)
+   oldPrice    : السعر قبل الخصم (اتركه null إذا لا يوجد خصم)
+   category    : التصنيف (مثال: "ملابس"، "إلكترونيات"، "إكسسوارات"، "منزل")
+   description : وصف قصير للمنتج
+   image       : رابط صورة المنتج (اتركه "" لعرض صورة افتراضية تلقائيًا)
+   ===================================================================== */
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "قميص رجالي قطن",
+    price: 120,
+    oldPrice: 160,
+    category: "ملابس",
+    description: "قماش قطني مريح، متوفر بعدة مقاسات وألوان.",
+    image: ""
+  },
+  {
+    id: 2,
+    name: "سماعات لاسلكية",
+    price: 199,
+    oldPrice: null,
+    category: "إلكترونيات",
+    description: "صوت عالي الجودة، بطارية تدوم طوال اليوم.",
+    image: ""
+  },
+  {
+    id: 3,
+    name: "ساعة يد كلاسيكية",
+    price: 250,
+    oldPrice: 320,
+    category: "إكسسوارات",
+    description: "تصميم أنيق يناسب كل المناسبات.",
+    image: ""
+  },
+  {
+    id: 4,
+    name: "حقيبة ظهر عملية",
+    price: 175,
+    oldPrice: null,
+    category: "إكسسوارات",
+    description: "مساحة واسعة ومقاومة للماء، مثالية للاستخدام اليومي.",
+    image: ""
+  },
+  {
+    id: 5,
+    name: "شاحن سريع متعدد المنافذ",
+    price: 90,
+    oldPrice: 110,
+    category: "إلكترونيات",
+    description: "يشحن أكثر من جهاز في نفس الوقت بسرعة عالية.",
+    image: ""
+  },
+  {
+    id: 6,
+    name: "طقم أواني مطبخ",
+    price: 340,
+    oldPrice: null,
+    category: "منزل",
+    description: "طقم متكامل عالي الجودة لكل احتياجات المطبخ.",
+    image: ""
+  }
+];
+
+/* =====================================================================
+   من هنا فما تحت: كود العرض — لا حاجة لتعديله إلا إذا كنت تعرف البرمجة
+   ===================================================================== */
+
+const grid = document.getElementById('productGrid');
+const catFilters = document.getElementById('catFilters');
+const searchInput = document.getElementById('searchInput');
+const resultCount = document.getElementById('resultCount');
+
+let activeCategory = "الكل";
+let searchTerm = "";
+
+function waLink(product){
+  const msg = product
+    ? `مرحبًا، أرغب في طلب: ${product.name} (${product.price} ${STORE_CONFIG.currency})`
+    : `مرحبًا، أرغب في الاستفسار عن منتجاتكم`;
+  return `https://wa.me/${STORE_CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+}
+
+function placeholderIcon(){
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="#0E3D38" stroke-width="1.5">
+    <path d="M4 8l8-5 8 5-8 5-8-5Z"/>
+    <path d="M4 8v9l8 5m0-9 8-5m-8 5v9"/>
+  </svg>`;
+}
+
+function renderHeaderFooter(){
+  document.getElementById('storeNameTop').textContent = STORE_CONFIG.name;
+  document.getElementById('storeTaglineTop').textContent = STORE_CONFIG.tagline;
+  document.getElementById('storeNameFooter').textContent = STORE_CONFIG.name;
+  document.getElementById('storeTaglineFooter').textContent = STORE_CONFIG.tagline;
+  document.getElementById('brandInitial').textContent = STORE_CONFIG.name.trim().charAt(0) || "م";
+  document.getElementById('heroTitle').textContent = STORE_CONFIG.heroTitle;
+  document.getElementById('heroSubtitle').textContent = STORE_CONFIG.heroSubtitle;
+  document.title = STORE_CONFIG.name;
+
+  const wa = waLink();
+  document.getElementById('headerWhatsapp').href = wa;
+  document.getElementById('floatWhatsapp').href = wa;
+  document.getElementById('footerWhatsapp').href = wa;
+  document.getElementById('footerWhatsapp').textContent = "واتساب: " + STORE_CONFIG.whatsapp;
+  document.getElementById('footerEmail').href = "mailto:" + STORE_CONFIG.email;
+  document.getElementById('footerEmail').textContent = "البريد: " + STORE_CONFIG.email;
+}
+
+function renderCategories(){
+  const cats = ["الكل", ...new Set(PRODUCTS.map(p => p.category))];
+  catFilters.innerHTML = cats.map(c =>
+    `<button class="cat-chip ${c === activeCategory ? 'active' : ''}" data-cat="${c}">${c}</button>`
+  ).join('');
+  catFilters.querySelectorAll('.cat-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.cat;
+      renderCategories();
+      renderProducts();
+    });
+  });
+}
+
+function renderProducts(){
+  const filtered = PRODUCTS.filter(p => {
+    const matchCat = activeCategory === "الكل" || p.category === activeCategory;
+    const matchSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         p.description.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
+  resultCount.textContent = filtered.length + " منتج";
+
+  if(filtered.length === 0){
+    grid.innerHTML = `<div class="empty-state">لا توجد منتجات مطابقة لبحثك</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="card">
+      <div class="card-media">
+        ${p.oldPrice ? `<span class="badge-discount">خصم ${Math.round((1 - p.price/p.oldPrice)*100)}%</span>` : ''}
+        ${p.image ? `<img src="${p.image}" alt="${p.name}">` : placeholderIcon()}
+        <span class="price-tag">${p.oldPrice ? `<span class="old">${p.oldPrice}</span>` : ''}${p.price} ${STORE_CONFIG.currency}</span>
+      </div>
+      <div class="card-body">
+        <span class="card-cat">${p.category}</span>
+        <h3 class="card-name">${p.name}</h3>
+        <p class="card-desc">${p.description}</p>
+        <a href="${waLink(p)}" target="_blank" class="order-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39a9.9 9.9 0 0 0 4.75 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.86 9.86 0 0 0 12.04 2zm0 18.1h-.01a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.34c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.55-3.7 8.18-8.25 8.18z"/></svg>
+          اطلب عبر واتساب
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+searchInput.addEventListener('input', (e) => {
+  searchTerm = e.target.value;
+  renderProducts();
+});
+
+renderHeaderFooter();
+renderCategories();
+renderProducts();
+</script>
+
+</body>
+</html>
